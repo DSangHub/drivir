@@ -2,8 +2,24 @@
 
 import { useState } from "react";
 import { CarFront, CircleGauge, Clock3, Coins, MapPin, Route, ShieldCheck, Trophy } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 type TripState = "setup" | "ready" | "driving" | "complete";
+type IconItem = [label: string, value: string, icon: LucideIcon];
+type NavItem = [label: string, icon: LucideIcon];
+
+const scoreItems: IconItem[] = [
+  ["Smooth braking", "98%", ShieldCheck],
+  ["Complete stops", "100%", CircleGauge],
+  ["Steady pace", "94%", Route],
+];
+
+const navItems: NavItem[] = [
+  ["Drive", CarFront],
+  ["Trips", Route],
+  ["Rewards", Trophy],
+  ["Wallet", Coins],
+];
 
 export function DrivirDashboard() {
   const [destination, setDestination] = useState("Downtown office");
@@ -75,7 +91,7 @@ export function DrivirDashboard() {
           <div className="rounded-[2rem] border border-white/10 bg-[#101c16] p-6">
             <h2 className="mb-5 text-lg font-extrabold">Scoring this trip</h2>
             <div className="space-y-4">
-              {[['Smooth braking','98%', ShieldCheck],['Complete stops','100%', CircleGauge],['Steady pace','94%', Route]].map(([label,value,Icon]) => <div key={String(label)} className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-white/[.06] text-[#b7ff2a]"><Icon size={19} /></span><span className="flex-1 text-sm text-white/65">{label}</span><strong>{value}</strong></div>)}
+              {scoreItems.map(([label,value,Icon]) => <div key={label} className="flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-white/[.06] text-[#b7ff2a]"><Icon size={19} /></span><span className="flex-1 text-sm text-white/65">{label}</span><strong>{value}</strong></div>)}
             </div>
           </div>
 
@@ -87,7 +103,7 @@ export function DrivirDashboard() {
       </section>
 
       <nav className="fixed inset-x-0 bottom-0 z-20 mx-auto flex max-w-md justify-around rounded-t-[1.6rem] border border-white/10 bg-[#111d17]/95 px-4 py-3 backdrop-blur-xl lg:bottom-5 lg:rounded-[1.6rem]">
-        {[['Drive',CarFront],['Trips',Route],['Rewards',Trophy],['Wallet',Coins]].map(([label,Icon],i)=><button key={String(label)} className={`flex min-w-16 flex-col items-center gap-1 text-xs ${i===0?'text-[#b7ff2a]':'text-white/45'}`}><Icon size={20}/><span>{label}</span></button>)}
+        {navItems.map(([label,Icon],i)=><button key={label} className={`flex min-w-16 flex-col items-center gap-1 text-xs ${i===0?'text-[#b7ff2a]':'text-white/45'}`}><Icon size={20}/><span>{label}</span></button>)}
       </nav>
     </main>
   );
