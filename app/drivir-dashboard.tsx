@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CarFront, CircleGauge, Clock3, Coins, MapPin, Route, ShieldCheck, Trophy } from "lucide-react";
+import { BadgeDollarSign, Building2, CarFront, CircleGauge, Clock3, Coins, LockKeyhole, MapPin, Route, ShieldCheck, Trophy } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type TripState = "setup" | "ready" | "driving" | "complete";
@@ -19,6 +19,12 @@ const navItems: NavItem[] = [
   ["Trips", Route],
   ["Rewards", Trophy],
   ["Wallet", Coins],
+];
+
+const insuranceItems: NavItem[] = [
+  ["Braking & complete stops", ShieldCheck],
+  ["Steady pace & safe distance", Route],
+  ["Time of day & driving time", Clock3],
 ];
 
 export function DrivirDashboard() {
@@ -100,6 +106,33 @@ export function DrivirDashboard() {
             <p className="text-sm leading-relaxed text-white/60">Challenge friends using earned points. Winners are based on safe scores—not speed. Purchased tokens and cash payouts stay off until compliance review.</p>
           </div>
         </aside>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pb-32 lg:px-8">
+        <div className="grid overflow-hidden rounded-[2rem] border border-[#73c7ff]/20 bg-[linear-gradient(135deg,#102a31,#101c16)] lg:grid-cols-[1.2fr_.8fr]">
+          <div className="p-7 sm:p-10">
+            <span className="mb-6 grid h-12 w-12 place-items-center rounded-2xl bg-[#73c7ff] text-[#07100c]"><BadgeDollarSign size={25} /></span>
+            <p className="mb-2 text-sm font-bold uppercase tracking-[.18em] text-[#73c7ff]">Insurance rewards</p>
+            <h2 className="max-w-2xl text-3xl font-black tracking-tight sm:text-5xl">Your safe-driving points may help you qualify for lower insurance.</h2>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/65">Participating insurance companies may verify driving data you choose to share and reward consistent safe-driving habits. Eligibility, discounts, and rewards depend on the insurer and are not guaranteed.</p>
+          </div>
+          <div className="border-t border-white/10 bg-black/10 p-7 sm:p-10 lg:border-l lg:border-t-0">
+            <h3 className="mb-5 text-lg font-extrabold">Your verified safety report</h3>
+            <div className="space-y-4">
+              {insuranceItems.map(([label, Icon]) => (
+                <div key={String(label)} className="flex items-center gap-3 text-sm text-white/70">
+                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/[.07] text-[#73c7ff]"><Icon size={18} /></span>
+                  <span>{label}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 flex gap-3 rounded-2xl border border-white/10 bg-white/[.04] p-4">
+              <LockKeyhole className="mt-0.5 shrink-0 text-[#73c7ff]" size={19} />
+              <p className="text-xs leading-relaxed text-white/50">You control sharing. An insurer receives a report only after your permission; Drivir does not promise a discount.</p>
+            </div>
+            <button disabled className="mt-5 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/[.07] px-4 text-sm font-bold text-white/55"><Building2 size={18} /> Insurance verification coming soon</button>
+          </div>
+        </div>
       </section>
 
       <nav className="fixed inset-x-0 bottom-0 z-20 mx-auto flex max-w-md justify-around rounded-t-[1.6rem] border border-white/10 bg-[#111d17]/95 px-4 py-3 backdrop-blur-xl lg:bottom-5 lg:rounded-[1.6rem]">
